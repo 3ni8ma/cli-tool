@@ -1,0 +1,49 @@
+# arkit
+
+A command-line scaffolding tool for React + Vite + TypeScript projects.
+
+## Installation
+
+```bash
+npm install -g arkit
+```
+
+Or use directly:
+
+```bash
+npx arkit init my-project
+```
+
+## Usage
+
+```bash
+arkit init <project-name> [options]
+```
+
+### Options
+
+| Flag | Description |
+|------|-------------|
+| `--router` | Include React Router setup |
+| `--tailwind` | Include Tailwind CSS configuration |
+| `--no-git` | Skip git initialization |
+
+### Examples
+
+```bash
+# Basic project
+arkit init my-app
+
+# With Tailwind CSS
+arkit init my-app --tailwind
+
+# Full stack: Tailwind + Router
+arkit init my-app --tailwind --router
+
+# Skip git init
+arkit init my-app --no-git
+```
+
+## License
+
+MIT
