@@ -27,6 +27,7 @@ arkit init <project-name> [options]
 | `--router` | Include React Router setup |
 | `--tailwind` | Include Tailwind CSS configuration |
 | `--no-git` | Skip git initialization |
+| `--javascript` | Use plain JavaScript (no TypeScript) |
 
 ### Examples
 

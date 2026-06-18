@@ -19,8 +19,9 @@ program
   .description('Create a new React + Vite project')
   .option('--router', 'Include React Router')
   .option('--tailwind', 'Include Tailwind CSS')
+  .option('--javascript', 'Use plain JavaScript instead of TypeScript')
   .option('--no-git', 'Skip git initialization')
-  .action((name: string, opts: { router?: boolean; tailwind?: boolean; git?: boolean }) => {
+  .action((name: string, opts: { router?: boolean; tailwind?: boolean; javascript?: boolean; git?: boolean }) => {
     const dir = resolve(process.cwd(), name)
     if (existsSync(dir)) {
       console.error(`Error: Directory "${name}" already exists`)
@@ -30,14 +31,14 @@ program
     mkdirSync(dir, { recursive: true })
     console.log(`Creating project "${name}"...`)
 
+    const isTs = !opts.javascript
+    const ext = isTs ? 'tsx' : 'jsx'
     const deps = ['react', 'react-dom']
-    const devDeps = [
-      'typescript',
-      'vite',
-      '@vitejs/plugin-react',
-      '@types/react',
-      '@types/react-dom',
-    ]
+    const devDeps = ['vite', '@vitejs/plugin-react']
+
+    if (isTs) {
+      devDeps.push('typescript', '@types/react', '@types/react-dom')
+    }
 
     if (opts.router) {
       deps.push('react-router-dom')
@@ -67,29 +68,32 @@ program
       )
     )
 
-    writeFileSync(
-      resolve(dir, 'tsconfig.json'),
-      JSON.stringify(
-        {
-          compilerOptions: {
-            target: 'ES2022',
-            lib: ['ES2023', 'DOM', 'DOM.Iterable'],
-            module: 'ESNext',
-            moduleResolution: 'bundler',
-            jsx: 'react-jsx',
-            strict: true,
-            skipLibCheck: true,
-            noEmit: true,
+    if (isTs) {
+      writeFileSync(
+        resolve(dir, 'tsconfig.json'),
+        JSON.stringify(
+          {
+            compilerOptions: {
+              target: 'ES2022',
+              lib: ['ES2023', 'DOM', 'DOM.Iterable'],
+              module: 'ESNext',
+              moduleResolution: 'bundler',
+              jsx: 'react-jsx',
+              strict: true,
+              skipLibCheck: true,
+              noEmit: true,
+            },
+            include: ['src'],
           },
-          include: ['src'],
-        },
-        null,
-        2
+          null,
+          2
+        )
       )
-    )
+    }
 
+    const viteConfigName = `vite.config.${isTs ? 'ts' : 'js'}`
     writeFileSync(
-      resolve(dir, 'vite.config.ts'),
+      resolve(dir, viteConfigName),
       `import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -113,17 +117,18 @@ export default defineConfig({
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/main.${ext}"></script>
   </body>
 </html>
 `
     )
 
     writeFileSync(
-      resolve(dir, 'src/main.tsx'),
-      `import { StrictMode } from 'react'
+      resolve(dir, `src/main.${ext}`),
+      isTs
+        ? `import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
+import App from './App.${ext}'
 import './index.css'
 
 createRoot(document.getElementById('root')!).render(
@@ -132,10 +137,21 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>,
 )
 `
+        : `import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import App from './App.${ext}'
+import './index.css'
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+`
     )
 
     writeFileSync(
-      resolve(dir, 'src/App.tsx'),
+      resolve(dir, `src/App.${ext}`),
       `function App() {
   return (
     <div>
@@ -151,13 +167,8 @@ export default App
     writeFileSync(
       resolve(dir, 'src/index.css'),
       opts.tailwind
-        ? `@tailwind base;
-@tailwind components;
-@tailwind utilities;
-`
-        : `* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, sans-serif; }
-`
+        ? `@tailwind base;\n@tailwind components;\n@tailwind utilities;\n`
+        : `* { margin: 0; padding: 0; box-sizing: border-box; }\nbody { font-family: system-ui, sans-serif; }\n`
     )
 
     if (opts.tailwind) {
@@ -165,7 +176,7 @@ body { font-family: system-ui, sans-serif; }
         resolve(dir, 'tailwind.config.js'),
         `/** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  content: ['./index.html', './src/**/*.{${isTs ? 'js,ts,jsx,tsx' : 'js,jsx'}}'],
   theme: { extend: {} },
   plugins: [],
 }
@@ -202,7 +213,7 @@ function App() {
 
 export default App
 `
-      writeFileSync(resolve(dir, 'src/App.tsx'), appContent)
+      writeFileSync(resolve(dir, `src/App.${ext}`), appContent)
     }
 
     writeFileSync(resolve(dir, '.gitignore'), `node_modules\ndist\n`)
