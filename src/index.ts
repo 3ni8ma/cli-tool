@@ -1,4 +1,4 @@
-// Build: 2026-06-22 16:00:04 | run 1782158404
+// Build: 2026-06-22 16:30:30 | run 1782160230
 #!/usr/bin/env node
 import { Command } from "commander";
 import { existsSync, writeFileSync, mkdirSync, copyFileSync } from "fs";
