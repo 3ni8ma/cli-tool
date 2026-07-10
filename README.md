@@ -48,3 +48,5 @@ arkit init my-app --no-git
 ## License
 
 MIT
+
+<!-- ach: 2026-07-10 11:30:28 -->
