@@ -1,5 +1,16 @@
 # arkit
 
+[![npm version](https://img.shields.io/npm/v/arkit)](https://www.npmjs.com/package/arkit)
+[![npm downloads](https://img.shields.io/npm/dm/arkit)](https://www.npmjs.com/package/arkit)
+[![License](https://img.shields.io/github/license/3ni8ma/cli-tool)](https://github.com/3ni8ma/cli-tool/blob/main/LICENSE)
+
+A command-line scaffolding tool that boots a production-ready React + Vite + TypeScript project in seconds — with optional Tailwind CSS and React Router, wired and ready to run.
+
+- **Zero-friction setup** — one command, working app with a `dev` script
+- **TypeScript by default** — `--javascript` when you want plain JS
+- **Tailwind + Router included** — opt in with a single flag each
+- **Git initialized automatically** — `--no-git` to skip
+
 A command-line scaffolding tool for React + Vite + TypeScript projects.
 
 ## Installation
