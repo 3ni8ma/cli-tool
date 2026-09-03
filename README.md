@@ -1,17 +1,28 @@
 # arkit
 
-A command-line scaffolding tool for React + Vite + TypeScript projects.
+[![npm version](https://img.shields.io/npm/v/arkit)](https://www.npmjs.com/package/arkit)
+[![license](https://img.shields.io/npm/l/arkit)](LICENSE)
+[![downloads](https://img.shields.io/npm/dm/arkit)](https://www.npmjs.com/package/arkit)
+
+A command-line scaffolding tool that boots a production-ready React + Vite + TypeScript project in seconds — with optional Tailwind CSS, React Router, and ESLint, wired up and ready to go.
+
+## Why
+
+`npm create vite` gives you a barebones template. arkit gives you a configured project with Tailwind, Router, ESLint, and strict TypeScript — all in one command. No manual setup, no copy-pasting configs.
+
+## Quick Start
+
+```bash
+npx arkit init my-project
+cd my-project
+npm install
+npm run dev
+```
 
 ## Installation
 
 ```bash
 npm install -g arkit
-```
-
-Or use directly:
-
-```bash
-npx arkit init my-project
 ```
 
 ## Usage
@@ -24,143 +35,57 @@ arkit init <project-name> [options]
 
 | Flag | Description |
 |------|-------------|
-| `--router` | Include React Router setup |
-| `--tailwind` | Include Tailwind CSS configuration |
-| `--no-git` | Skip git initialization |
+| `--tailwind` | Include Tailwind CSS + PostCSS config |
+| `--router` | Include React Router with BrowserRouter |
+| `--eslint` | Include ESLint with React + Hooks rules |
 | `--javascript` | Use plain JavaScript (no TypeScript) |
+| `--pnpm` | Use pnpm instead of npm |
+| `--yarn` | Use yarn instead of npm |
+| `--no-git` | Skip git initialization |
+| `--force` | Overwrite existing directory |
 
 ### Examples
 
 ```bash
-# Basic project
+# Basic TypeScript project
 arkit init my-app
 
-# With Tailwind CSS
-arkit init my-app --tailwind
+# Full stack: Tailwind + Router + ESLint
+arkit init my-app --tailwind --router --eslint
 
-# Full stack: Tailwind + Router
-arkit init my-app --tailwind --router
+# JavaScript with pnpm
+arkit init my-app --javascript --pnpm
 
-# Skip git init
+# Quick prototype, skip git
 arkit init my-app --no-git
 ```
+
+## What You Get
+
+```
+my-app/
+├── index.html
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+├── .gitignore
+├── .env.example
+└── src/
+    ├── main.tsx
+    ├── App.tsx
+    ├── App.css
+    └── index.css
+```
+
+With `--tailwind`:
+- `tailwind.config.js` + `postcss.config.js` + Tailwind directives in `index.css`
+
+With `--router`:
+- BrowserRouter wrapping `<App />` in `main.tsx`
+
+With `--eslint`:
+- `eslint.config.js` with React, Hooks, and Refresh rules
 
 ## License
 
 MIT
-
-<!-- ach: 2026-07-10 11:30:28 -->
-
-<!-- ach: 2026-07-10 16:30:35 -->
-
-<!-- ach: 2026-07-10 19:00:28 -->
-
-<!-- ach: 2026-07-10 21:30:39 -->
-
-<!-- ach: 2026-07-11 00:00:23 -->
-
-<!-- ach: 2026-07-11 20:00:13 -->
-
-<!-- ach: 2026-07-12 18:30:05 -->
-
-<!-- ach: 2026-07-12 21:00:44 -->
-
-<!-- ach: 2026-07-13 02:02:17 -->
-
-<!-- ach: 2026-07-13 14:31:07 -->
-
-<!-- ach: 2026-07-13 17:00:13 -->
-
-<!-- ach: 2026-07-13 19:33:09 -->
-
-<!-- ach: 2026-07-14 13:00:02 -->
-
-<!-- ach: 2026-07-14 23:00:05 -->
-
-<!-- ach: 2026-07-15 19:03:18 -->
-
-<!-- ach: 2026-07-16 00:00:20 -->
-
-<!-- ach: 2026-07-16 20:00:02 -->
-
-<!-- ach: 2026-07-16 22:30:05 -->
-
-<!-- ach: 2026-07-17 16:00:47 -->
-
-<!-- ach: 2026-07-17 18:30:12 -->
-
-<!-- ach: 2026-07-17 23:30:14 -->
-
-<!-- ach: 2026-07-18 19:30:09 -->
-
-<!-- ach: 2026-07-19 20:30:17 -->
-
-<!-- ach: 2026-07-20 21:30:08 -->
-
-<!-- ach: 2026-07-21 00:00:09 -->
-
-<!-- ach: 2026-07-21 02:30:05 -->
-
-<!-- ach: 2026-07-21 22:30:43 -->
-
-<!-- ach: 2026-07-22 13:30:28 -->
-
-<!-- ach: 2026-07-22 23:30:15 -->
-
-<!-- ach: 2026-07-23 14:30:26 -->
-
-<!-- ach: 2026-07-23 22:00:37 -->
-
-<!-- ach: 2026-07-24 18:01:13 -->
-
-<!-- ach: 2026-07-24 23:00:29 -->
-
-<!-- ach: 2026-07-25 19:00:15 -->
-
-<!-- ach: 2026-07-25 21:30:05 -->
-
-<!-- ach: 2026-07-26 10:06:02 -->
-
-<!-- ach: 2026-07-27 13:30:22 -->
-
-<!-- ach: 2026-07-27 18:30:42 -->
-
-<!-- ach: 2026-07-27 21:00:30 -->
-
-<!-- ach: 2026-07-28 12:01:45 -->
-
-<!-- ach: 2026-07-28 14:30:13 -->
-
-<!-- ach: 2026-07-28 17:00:46 -->
-
-<!-- ach: 2026-07-28 22:00:24 -->
-
-<!-- ach: 2026-07-29 13:00:32 -->
-
-<!-- ach: 2026-07-29 15:30:34 -->
-
-<!-- ach: 2026-07-29 18:00:43 -->
-
-<!-- ach: 2026-07-29 23:00:39 -->
-
-<!-- ach: 2026-07-30 19:00:12 -->
-
-<!-- ach: 2026-07-30 21:30:13 -->
-
-<!-- ach: 2026-07-31 00:01:21 -->
-
-<!-- ach: 2026-07-31 02:30:51 -->
-
-<!-- ach: 2026-07-31 20:00:19 -->
-
-<!-- ach: 2026-07-31 22:30:21 -->
-
-<!-- ach: 2026-08-01 01:00:20 -->
-
-<!-- ach: 2026-08-01 23:30:40 -->
-
-<!-- ach: 2026-08-02 02:00:27 -->
-
-<!-- ach: 2026-08-02 17:00:52 -->
-
-<!-- ach: 2026-08-02 22:00:04 -->
