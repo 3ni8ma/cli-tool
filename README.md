@@ -89,3 +89,5 @@ With `--eslint`:
 ## License
 
 MIT
+
+<!-- ach: 2026-09-04 00:01:22 -->
