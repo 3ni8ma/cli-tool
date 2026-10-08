@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Build: 2026-10-07 20:30:14 | run 1791419415
+// Build: 2026-10-07 21:00:33 | run 1791421233
 import { Command } from "commander";
 import { existsSync, writeFileSync, mkdirSync, copyFileSync } from "fs";
 import { join, resolve } from "path";
